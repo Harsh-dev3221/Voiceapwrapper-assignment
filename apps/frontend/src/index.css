@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-script: 'Gochi Hand', cursive;
+
+    --color-brand-yellow: #FFD700;
+    --color-brand-black: #000000;
+
+    --shadow-brutal: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+    --shadow-brutal-hover: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+}
+
+@layer base {
+    body {
+        font-family: var(--font-body);
+        @apply bg-gray-50 text-brand-black;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-display);
+        @apply font-bold uppercase tracking-tight;
+    }
+}
+
+/* Brutalist Utility Classes */
+.brutal-border {
+    @apply border-2 border-brand-black;
+}
+
+.brutal-shadow {
+    @apply shadow-brutal transition-all duration-200;
+}
+
+.brutal-btn {
+    @apply bg-brand-yellow px-6 py-3 font-bold uppercase tracking-wider border-2 border-brand-black shadow-brutal transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutal-hover active:translate-x-[4px] active:translate-y-[4px] active:shadow-none;
+}
+
+.brutal-card {
+    @apply bg-white p-6 border-2 border-brand-black shadow-brutal transition-all duration-200;
+}
+
+.brutal-input {
+    @apply w-full p-3 bg-white border-2 border-brand-black focus:outline-none focus:ring-4 focus:ring-yellow-400/50 transition-all font-bold;
+}
+
+.text-stroke-black {
+    -webkit-text-stroke: 1px black;
+    color: transparent;
+}
+
+/* Toast animation */
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+}

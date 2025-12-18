@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./apps/backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=docker-secret-key-change-in-production
+      - ALLOWED_HOSTS=localhost,backend
+    volumes:
+      - ./apps/backend:/app
+      - backend_static:/app/static
+    command: python manage.py runserver 0.0.0.0:8000
+
+  frontend:
+    build: ./apps/frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  # Development mode with hot reload
+  frontend-dev:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./apps/frontend:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev -- --host"
+    depends_on:
+      - backend
+    profiles:
+      - dev
+
+volumes:
+  backend_static:
